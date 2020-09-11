@@ -1,10 +1,13 @@
 package com.navjot.football_league;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -12,6 +15,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,10 +25,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import io.paperdb.Paper;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private String userType;
+    private AlertDialog.Builder builder;
+    private TextView wlcmText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setItemIconTintList(null);
 
         userType = getIntent().getStringExtra("userType");
+        builder = new AlertDialog.Builder(this);
+        wlcmText = findViewById(R.id.wlcm_tv);
+
+        if(userType.equals("guest")){
+            navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+        }else{
+            wlcmText.setText("Welcome "+((userType.equals("tManager")?"Team Manager" : "League Manager")));
+            navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+        }
     }
 
     @Override
@@ -67,6 +87,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
+        int id = item.getItemId();
+
+        if(id == R.id.nav_logout){
+            builder.setMessage("Do You Want to Logout?");
+            builder.setTitle("Alert");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Paper.book().destroy();
+                    finish();
+                    Intent intent = new Intent(getApplicationContext(),SelectUserType.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Logged Out...", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+        return true;
     }
 }

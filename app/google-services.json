@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "935043029059",
+    "firebase_url": "https://football-league-b3463.firebaseio.com",
+    "project_id": "football-league-b3463",
+    "storage_bucket": "football-league-b3463.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935043029059:android:22502cc93d09e6104c5cf6",
+        "android_client_info": {
+          "package_name": "com.navjot.football_league"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935043029059-5rqc0sr9mjddk26gqnlujlj75q3vj80l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZPWqk__C103MNnf7pgvgJFRAw14A-RvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935043029059-5rqc0sr9mjddk26gqnlujlj75q3vj80l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

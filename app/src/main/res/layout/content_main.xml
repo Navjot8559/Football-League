@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,10 +8,13 @@
     tools:showIn="@layout/app_bar_main">
 
         <TextView
+            android:id="@+id/wlcm_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home Activity">
-
+            android:text="Welcome Guest"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textColor="@color/red">
         </TextView>
 
-</LinearLayout>
+</RelativeLayout>
