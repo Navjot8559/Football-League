@@ -73,7 +73,7 @@ public class SelectUserType extends AppCompatActivity {
         String userType = Paper.book().read(Prevelant.userType);
 
         if(userPhone != "" && userPassword != ""){
-            if(!TextUtils.isEmpty(userPhone) && !TextUtils.isEmpty(userPassword)){
+            if(!TextUtils.isEmpty(userPhone) && !TextUtils.isEmpty(userPassword) && !TextUtils.isEmpty(userType)){
                 mProgressDialog.setTitle("Already Logged In...");
                 mProgressDialog.setMessage("please wait...");
                 mProgressDialog.setCanceledOnTouchOutside(false);
