@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.navjot.football_league.Prevelant.Prevelant;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
         }
+
     }
 
     @Override
@@ -112,6 +114,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        }else if(id == R.id.nav_tmanager){
+            startActivity(new Intent(getApplicationContext(),TeamManagers.class));
         }
         return true;
     }

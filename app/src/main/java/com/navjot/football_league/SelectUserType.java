@@ -101,6 +101,7 @@ public class SelectUserType extends AppCompatActivity {
                             //logged in
                             Toast.makeText(getApplicationContext(), "Successfully Logged In...", Toast.LENGTH_SHORT).show();
                             Prevelant.currentUser = currentUser;
+                            Prevelant.userType = userType;
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             intent.putExtra("userType",userType);
                             startActivity(intent);
