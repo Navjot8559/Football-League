@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTeam">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/team_logo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="30dp"
+            android:src="@drawable/ic_add_photo_circle">
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <TextView
+            android:id="@+id/add_logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Click to add Team Logo"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_below="@+id/team_logo">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/manager_phone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/textview_shape"
+            android:hint="Manager Phone"
+            android:inputType="number"
+            android:padding="6dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/add_logo"/>
+
+        <Button
+            android:id="@+id/add_team_btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/manager_phone"
+            android:background="@drawable/button_shape"
+            android:text="Add Team"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+</ScrollView>

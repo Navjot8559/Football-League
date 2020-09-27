@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             wlcmText.setText("Welcome "+((userType.equals("tManager")?"Team Manager" : "League Manager")));
             navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
         }
 
     }
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Paper.book().destroy();
+                    Prevelant.userType = "guest";
                     finish();
                     Intent intent = new Intent(getApplicationContext(),SelectUserType.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -116,6 +118,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             alertDialog.show();
         }else if(id == R.id.nav_tmanager){
             startActivity(new Intent(getApplicationContext(),TeamManagers.class));
+        }else if(id == R.id.nav_login){
+            startActivity(new Intent(getApplicationContext(),SelectUserType.class));
+            finish();
+        }else if(id == R.id.nav_teams){
+           startActivity(new Intent(getApplicationContext(),Teams.class));
         }
         return true;
     }
