@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddTeam extends AppCompatActivity {
 
-    private CircleImageView logo;
+    private ImageView logo;
     private EditText phone;
     private Button addTeam;
     private String teamId,teamName,managerName,teamLogo;
@@ -55,6 +57,10 @@ public class AddTeam extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_team);
+
+        getSupportActionBar().setTitle("Add Team");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         logo = findViewById(R.id.team_logo);
         phone = findViewById(R.id.manager_phone);
@@ -212,6 +218,14 @@ public class AddTeam extends AppCompatActivity {
             logo.setImageURI(imageUri);
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
