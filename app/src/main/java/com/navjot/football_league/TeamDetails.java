@@ -65,7 +65,9 @@ public class TeamDetails extends AppCompatActivity {
         addPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),AddPlayer.class));
+                Intent intent = new Intent(getApplicationContext(),AddPlayer.class);
+                intent.putExtra("teamId",teamId);
+                startActivity(intent);
             }
         });
 
