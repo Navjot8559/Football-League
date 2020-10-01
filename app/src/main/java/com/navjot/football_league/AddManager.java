@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ import java.util.HashMap;
 
 public class AddManager extends AppCompatActivity {
     
-    private TextView managerName,managerPhone,managerPassword,managerTeam;
+    private EditText managerName,managerPhone,managerPassword,managerTeam;
     private Button addManager;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference managerRef = db.collection("tManager");
