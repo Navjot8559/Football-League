@@ -28,6 +28,8 @@ public class Team {
         this.teamName = teamName;
         this.managerName = managerName;
         this.teamLogo = teamLogo;
+        this.teamSize = teamSize;
+        this.matches = matches;
         this.wins = wins;
         this.loses = loses;
         this.ties = ties;
