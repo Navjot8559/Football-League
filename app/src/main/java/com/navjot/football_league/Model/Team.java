@@ -2,12 +2,28 @@ package com.navjot.football_league.Model;
 
 public class Team {
     private String teamId,teamName,managerName,teamLogo;
-    private int wins,loses,ties,points;
+    private int teamSize,matches,wins,loses,ties,points;
+
+    public int getTeamSize() {
+        return teamSize;
+    }
+
+    public void setTeamSize(int teamSize) {
+        this.teamSize = teamSize;
+    }
+
+    public int getMatches() {
+        return matches;
+    }
+
+    public void setMatches(int matches) {
+        this.matches = matches;
+    }
 
     public Team() {
     }
 
-    public Team(String teamId, String teamName, String managerPhone, String managerName, String teamLogo, int wins, int loses, int ties, int points) {
+    public Team(String teamId, String teamName, String managerPhone, String managerName, String teamLogo,int teamSize,int matches, int wins, int loses, int ties, int points) {
         this.teamId = teamId;
         this.teamName = teamName;
         this.managerName = managerName;

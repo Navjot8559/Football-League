@@ -42,7 +42,7 @@ public class AddTeam extends AppCompatActivity {
     private EditText phone;
     private Button addTeam;
     private String teamId,teamName,managerName,teamLogo;
-    private int wins,loses,ties,points;
+    private int teamSize,matches,wins,loses,ties,points;
     private Uri imageUri;
     private static final int galleryPick = 1;
     private ProgressDialog mProgressDialog;
@@ -180,6 +180,8 @@ public class AddTeam extends AppCompatActivity {
         teamMap.put("teamName",teamName);
         teamMap.put("managerName",managerName);
         teamMap.put("teamLogo",teamLogo);
+        teamMap.put("teamSize",teamSize);
+        teamMap.put("matches",matches);
         teamMap.put("wins",wins);
         teamMap.put("loses",loses);
         teamMap.put("ties",ties);
