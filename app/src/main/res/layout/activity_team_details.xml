@@ -1,9 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TeamDetails">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/team_logo"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/team_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Team Name"
+        android:layout_below="@+id/team_logo"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorPrimaryDark">
+    </TextView>
+
+    <TextView
+        android:id="@+id/team_manager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Managed By : "
+        android:layout_below="@+id/team_name"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/red">
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/players_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/team_manager"
+        android:layout_above="@+id/add_player_btn">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/add_player_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_shape"
+        android:text="Add Player"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

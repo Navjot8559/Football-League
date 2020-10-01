@@ -10,7 +10,7 @@
         android:id="@+id/teams_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/add_team_manager">
+        android:layout_above="@+id/add_team_btn">
     </androidx.recyclerview.widget.RecyclerView>
 
     <Button
