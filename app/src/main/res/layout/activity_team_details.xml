@@ -11,7 +11,7 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp">
+        android:layout_margin="10dp">
     </ImageView>
 
     <TextView
@@ -34,7 +34,7 @@
         android:layout_below="@+id/team_name"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:textColor="@color/red">
     </TextView>
 

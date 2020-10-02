@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity {
         checkAccess(phone,pass);
     }
 
-    private void checkAccess(String phone, final String pass) {
+    private void checkAccess(final String phone, final String pass) {
 
         Paper.book().write(Prevelant.userPhone,phone);
         Paper.book().write(Prevelant.userPassword,pass);
@@ -109,6 +109,7 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, "Successfully Logged In...", Toast.LENGTH_SHORT).show();
                             Prevelant.currentUser = currentUser;
                             Prevelant.userType = userType;
+                            Prevelant.userPhone = phone;
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             intent.putExtra("userType",userType);
                             startActivity(intent);

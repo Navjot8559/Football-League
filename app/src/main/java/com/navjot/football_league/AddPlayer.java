@@ -49,6 +49,7 @@ public class AddPlayer extends AppCompatActivity {
     private CollectionReference teamCollection = db.collection("Teams");
     private String teamId,teamName,playerId,name,age,position,downloadUrl;
     private int teamSize;
+    private boolean teamfull;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,15 +104,49 @@ public class AddPlayer extends AppCompatActivity {
             return;
         }
 
-        storePlayerInfo();
+        checkTeamSize();
     }
 
-    private void storePlayerInfo() {
+    private void checkTeamSize() {
+
         //show progress dialog when add button is clicked
         mProgressDialog.setTitle("Adding Player");
         mProgressDialog.setMessage("please wait...");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();
+
+        teamfull = false;
+
+        //first check if team is full or not
+        teamCollection.document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    Team team = documentSnapshot.toObject(Team.class);
+                    teamSize = team.getTeamSize();
+                    teamName = team.getTeamName();
+                    if(teamSize==11) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(AddPlayer.this, "team is full...", Toast.LENGTH_SHORT).show();
+                    }else{
+                        storePlayerInfo();
+                    }
+                }else{
+                    mProgressDialog.dismiss();
+                    Toast.makeText(AddPlayer.this,task.getException().toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                mProgressDialog.dismiss();
+                Toast.makeText(AddPlayer.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void storePlayerInfo() {
 
         String saveCurrentDate,saveCurrentTime;
 
@@ -141,8 +176,8 @@ public class AddPlayer extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         //getting download url from firebase storage
                         downloadUrl = uri.toString();
-                        //check size of team
-                        checkTeamSize();
+                        //save player info
+                        savePlayerInfoToDatabase();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -154,36 +189,6 @@ public class AddPlayer extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void checkTeamSize() {
-
-        //first check if team is full or not
-        teamCollection.document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    Team team = documentSnapshot.toObject(Team.class);
-                    teamSize = team.getTeamSize();
-                    teamName = team.getTeamName();
-                    if(teamSize==11) {
-                        Toast.makeText(AddPlayer.this, "team is full...", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }else{
-                    mProgressDialog.dismiss();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                mProgressDialog.dismiss();
-                Toast.makeText(AddPlayer.this,e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        savePlayerInfoToDatabase();
     }
 
     private void savePlayerInfoToDatabase() {

@@ -7,7 +7,7 @@ public class Prevelant {
     public static Users currentUser;
 
     public static String userType = "userType";
-    public static final String userPhone = "UserPhone";
+    public static String userPhone = "UserPhone";
     public static final String userPassword = "UserPassword";
 }
 

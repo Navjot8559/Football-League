@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
         }else{
-            wlcmText.setText("Welcome "+((userType.equals("tManager")?"Team Manager" : "League Manager")));
+            //wlcmText.setText("Welcome "+((userType.equals("tManager")?"Team Manager" : "League Manager")));
+            wlcmText.setText(Prevelant.userPhone);
             navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Paper.book().destroy();
                     Prevelant.userType = "guest";
+                    Prevelant.userPhone = "userPhone";
                     finish();
                     Intent intent = new Intent(getApplicationContext(),SelectUserType.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

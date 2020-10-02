@@ -84,7 +84,7 @@ public class SelectUserType extends AppCompatActivity {
 
     }
 
-    private void checkAccess(String phone, final String password, final String userType) {
+    private void checkAccess(final String phone, final String password, final String userType) {
         userCollection = db.collection(userType);
         DocumentReference docIdRef = userCollection.document(phone);
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -102,6 +102,7 @@ public class SelectUserType extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Successfully Logged In...", Toast.LENGTH_SHORT).show();
                             Prevelant.currentUser = currentUser;
                             Prevelant.userType = userType;
+                            Prevelant.userPhone = phone;
                             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                             intent.putExtra("userType",userType);
                             startActivity(intent);

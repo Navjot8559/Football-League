@@ -1,11 +1,13 @@
 package com.navjot.football_league;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +34,8 @@ import com.navjot.football_league.Model.Team;
 import com.navjot.football_league.Prevelant.Prevelant;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TeamDetails extends AppCompatActivity {
@@ -46,6 +50,7 @@ public class TeamDetails extends AppCompatActivity {
     private CollectionReference teamRef = db.collection("Teams");
     private CollectionReference playerRef;
     private Query mQuery;
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class TeamDetails extends AppCompatActivity {
         teamName.setText(team);
         teamManager = findViewById(R.id.team_manager);
         addPlayer = findViewById(R.id.add_player_btn);
+        builder = new AlertDialog.Builder(this);
         mProgressDialog = new ProgressDialog(this);
         mRecyclerView = findViewById(R.id.players_list);
         mRecyclerView.setHasFixedSize(true);
@@ -91,9 +97,73 @@ public class TeamDetails extends AppCompatActivity {
 
         FirestoreRecyclerAdapter<Player,PlayerViewHolder> adapter = new FirestoreRecyclerAdapter<Player, PlayerViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull PlayerViewHolder holder, int position, @NonNull Player model) {
+            protected void onBindViewHolder(@NonNull final PlayerViewHolder holder, int position, @NonNull final Player model) {
                 holder.playerName.setText(model.getPlayerName());
+                holder.playerPosition.setText(model.getPlayerPosition());
                 Picasso.get().load(model.getPlayerImage()).into(holder.playerImage);
+
+                if(Prevelant.userType.equals("lManager") || Prevelant.userPhone.equals(teamId)){
+                    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            builder.setMessage("Do you want to remove this Player?");
+                            builder.setTitle("Alert");
+                            builder.setCancelable(false);
+                            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    mProgressDialog.setTitle("Removing");
+                                    mProgressDialog.setMessage("please wait...");
+                                    mProgressDialog.setCanceledOnTouchOutside(false);
+                                    mProgressDialog.show();
+
+                                    playerRef.document(model.getPlayerId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                teamRef.document(teamId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if(task.isSuccessful()){
+                                                            DocumentSnapshot documentSnapshot = task.getResult();
+                                                            Team team = documentSnapshot.toObject(Team.class);
+                                                            int teamSize = team.getTeamSize();
+                                                            teamSize--;
+                                                            teamRef.document(teamId).update("teamSize",teamSize);
+                                                            mProgressDialog.dismiss();
+                                                            Toast.makeText(TeamDetails.this,"player removed...", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        mProgressDialog.dismiss();
+                                                        Toast.makeText(TeamDetails.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            mProgressDialog.dismiss();
+                                            Toast.makeText(TeamDetails.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.cancel();
+                                }
+                            });
+                            AlertDialog alertDialog = builder.create();
+                            alertDialog.show();
+                            return true;
+                        }
+                    });
+                }
             }
 
             @NonNull
@@ -141,12 +211,13 @@ public class TeamDetails extends AppCompatActivity {
 
     public static class PlayerViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView playerName;
+        public TextView playerName,playerPosition;
         public CircleImageView playerImage;
 
         public PlayerViewHolder(@NonNull View itemView) {
             super(itemView);
             playerName = itemView.findViewById(R.id.player_name);
+            playerPosition = itemView.findViewById(R.id.player_position);
             playerImage = itemView.findViewById(R.id.player_image);
         }
     }
