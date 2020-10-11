@@ -7,14 +7,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
 
-        <TextView
-            android:id="@+id/wlcm_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Welcome Guest"
-            android:layout_centerInParent="true"
-            android:textSize="18sp"
-            android:textColor="@color/red">
-        </TextView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/match_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>
