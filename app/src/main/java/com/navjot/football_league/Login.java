@@ -125,7 +125,7 @@ public class Login extends AppCompatActivity {
                 } else {
                     //network error
                     mProgressDialog.dismiss();
-                    Toast.makeText(Login.this, "Error : please try again...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,task.getException().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
