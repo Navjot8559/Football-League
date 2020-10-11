@@ -230,4 +230,11 @@ public class TeamDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(Prevelant.userType.equals("lManager") || Prevelant.userPhone.equals(teamId)){
+            addPlayer.setVisibility(View.VISIBLE);
+        }
+    }
 }

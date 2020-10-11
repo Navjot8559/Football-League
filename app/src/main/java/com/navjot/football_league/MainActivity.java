@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             finish();
         }else if(id == R.id.nav_teams){
            startActivity(new Intent(getApplicationContext(),Teams.class));
+        }else if(id == R.id.nav_schedule){
+           startActivity(new Intent(getApplicationContext(),CreateSchedule.class));
         }
         return true;
     }

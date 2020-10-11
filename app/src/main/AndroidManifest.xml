@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPlayer"></activity>
+        <activity android:name=".CreateSchedule"></activity>
+        <activity android:name=".AddPlayer" />
         <activity android:name=".TeamDetails" />
         <activity android:name=".AddTeam" />
         <activity android:name=".Teams" />
@@ -31,9 +32,9 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
