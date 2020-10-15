@@ -99,13 +99,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FirestoreRecyclerAdapter<Schedule,ScheduleViewHolder> adapter = new FirestoreRecyclerAdapter<Schedule, ScheduleViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ScheduleViewHolder holder, int position, @NonNull Schedule model) {
+            protected void onBindViewHolder(@NonNull ScheduleViewHolder holder, int position, @NonNull final Schedule model) {
                 holder.team1.setText(model.getTeam1());
                 holder.team2.setText(model.getTeam2());
                 holder.date.setText(model.getMatchDate());
                 holder.time.setText(model.getMatchTime());
                 Picasso.get().load(model.getTeam1Logo()).into(holder.team1Logo);
                 Picasso.get().load(model.getTeam2Logo()).into(holder.team2Logo);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                       Intent intent = new Intent(getApplicationContext(),MatchDetail.class);
+                       intent.putExtra("team1Id",model.getTeam1Id());
+                       intent.putExtra("team2Id",model.getTeam2Id());
+                       intent.putExtra("team1",model.getTeam1());
+                       intent.putExtra("team2",model.getTeam2());
+                       intent.putExtra("team1Logo",model.getTeam1Logo());
+                       intent.putExtra("team2Logo",model.getTeam2Logo());
+                       intent.putExtra("date",model.getMatchDate());
+                       intent.putExtra("time",model.getMatchTime());
+                       intent.putExtra("scheduleId",model.getScheduleId());
+                       startActivity(intent);
+                    }
+                });
 
             }
 
