@@ -96,6 +96,23 @@ public class MatchDetail extends AppCompatActivity {
         fetchTeamPlayers(mQuery1,team1List);
         fetchTeamPlayers(mQuery2,team2List);
 
+        declareResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),DeclareResult.class);
+                intent.putExtra("team1Id",team1Id);
+                intent.putExtra("team2Id",team2Id);
+                intent.putExtra("team1",team1);
+                intent.putExtra("team2",team2);
+                intent.putExtra("team1Logo",team1Logo);
+                intent.putExtra("team2Logo",team2Logo);
+                intent.putExtra("date",date);
+                intent.putExtra("time",time);
+                intent.putExtra("scheduleId",scheduleId);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void fetchTeamPlayers(Query mQuery,RecyclerView mRecyclerView) {
