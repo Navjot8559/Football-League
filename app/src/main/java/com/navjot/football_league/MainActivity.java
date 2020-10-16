@@ -188,6 +188,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
            startActivity(new Intent(getApplicationContext(),Teams.class));
         }else if(id == R.id.nav_schedule){
            startActivity(new Intent(getApplicationContext(),CreateSchedule.class));
+        }else if(id == R.id.nav_results){
+            startActivity(new Intent(getApplicationContext(),ViewResult.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
