@@ -87,8 +87,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(userType.equals("guest")){
             navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+        }else if(userType.equals("tManager")){
+            navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
         }else{
-
             navigationView.getMenu().findItem(R.id.nav_schedule).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
