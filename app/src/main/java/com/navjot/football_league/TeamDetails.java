@@ -44,7 +44,7 @@ public class TeamDetails extends AppCompatActivity {
     private ImageView teamLogo;
     private TextView teamName,teamManager;
     private RecyclerView mRecyclerView;
-    private Button addPlayer;
+    private Button addPlayer,teamStats;
     private ProgressDialog mProgressDialog;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference teamRef = db.collection("Teams");
@@ -71,6 +71,7 @@ public class TeamDetails extends AppCompatActivity {
         teamName.setText(team);
         teamManager = findViewById(R.id.team_manager);
         addPlayer = findViewById(R.id.add_player_btn);
+        teamStats = findViewById(R.id.view_stats_btn);
         builder = new AlertDialog.Builder(this);
         mProgressDialog = new ProgressDialog(this);
         mRecyclerView = findViewById(R.id.players_list);
@@ -85,6 +86,15 @@ public class TeamDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),AddPlayer.class);
+                intent.putExtra("teamId",teamId);
+                startActivity(intent);
+            }
+        });
+
+        teamStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),Statistics.class);
                 intent.putExtra("teamId",teamId);
                 startActivity(intent);
             }

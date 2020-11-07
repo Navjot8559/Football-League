@@ -34,15 +34,29 @@
         android:layout_below="@+id/team_name"
         android:layout_centerHorizontal="true"
         android:textSize="16sp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/red">
     </TextView>
+
+    <Button
+        android:id="@+id/view_stats_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/team_manager"
+        android:background="@drawable/button_shape"
+        android:text="View Statistics"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:padding="5dp"
+        android:layout_marginBottom="20dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/players_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/team_manager"
+        android:layout_below="@+id/view_stats_btn"
         android:layout_above="@+id/add_player_btn">
     </androidx.recyclerview.widget.RecyclerView>
 
