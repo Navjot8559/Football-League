@@ -119,7 +119,6 @@ public class Teams extends AppCompatActivity {
                    public void onClick(View view) {
                       Intent intent = new Intent(getApplicationContext(),TeamDetails.class);
                       intent.putExtra("teamId",model.getTeamId());
-                      intent.putExtra("teamName",model.getTeamName());
                       startActivity(intent);
                    }
                });

@@ -40,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TeamDetails extends AppCompatActivity {
 
-    private String teamId,team;
+    private String teamId;
     private ImageView teamLogo;
     private TextView teamName,teamManager;
     private RecyclerView mRecyclerView;
@@ -58,17 +58,15 @@ public class TeamDetails extends AppCompatActivity {
         setContentView(R.layout.activity_team_details);
 
         teamId = getIntent().getStringExtra("teamId");
-        team = getIntent().getStringExtra("teamName");
         playerRef = teamRef.document(teamId).collection("Players");
         mQuery = playerRef.orderBy("playerName", Query.Direction.ASCENDING);
 
-        getSupportActionBar().setTitle(team);
+        getSupportActionBar().setTitle("Team Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         teamLogo = findViewById(R.id.team_logo);
         teamName = findViewById(R.id.team_name);
-        teamName.setText(team);
         teamManager = findViewById(R.id.team_manager);
         addPlayer = findViewById(R.id.add_player_btn);
         teamStats = findViewById(R.id.view_stats_btn);
@@ -202,9 +200,11 @@ public class TeamDetails extends AppCompatActivity {
                     if(documentSnapshot.exists()){
                         Team team = documentSnapshot.toObject(Team.class);
                         Picasso.get().load(team.getTeamLogo()).into(teamLogo);
+                        teamName.setText(team.getTeamName());
                         teamManager.setText("Managed By : " + team.getManagerName());
                     }else{
                         Toast.makeText(TeamDetails.this, "team not exists...", Toast.LENGTH_SHORT).show();
+                        addPlayer.setVisibility(View.GONE);
                     }
                 }
             }

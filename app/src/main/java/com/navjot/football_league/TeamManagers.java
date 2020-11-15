@@ -28,6 +28,9 @@ import com.google.firebase.firestore.Query;
 import com.navjot.football_league.Model.ItemClickListner;
 import com.navjot.football_league.Model.Managers;
 import com.navjot.football_league.Prevelant.Prevelant;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TeamManagers extends AppCompatActivity {
 
@@ -71,43 +74,54 @@ public class TeamManagers extends AppCompatActivity {
                 holder.managerName.setText(model.getName());
                 holder.managerPhone.setText(model.getPhone());
                 holder.managerTeam.setText(model.getTeamName());
+                Picasso.get().load(model.getManagerImage()).into(holder.managerImage);
 
                 if(Prevelant.userType.equals("lManager")){
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
-                        public void onClick(View view) {
+                        public boolean onLongClick(View view) {
                             CharSequence options[] = new CharSequence[]{
-                                    "Remove","Cancel"
+                                    "Remove", "Cancel"
                             };
                             final AlertDialog.Builder builder = new AlertDialog.Builder(TeamManagers.this);
                             builder.setTitle("Remove Manager");
                             builder.setItems(options, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                   if(i == 0){
-                                      managerRef.document(model.getPhone()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                          @Override
-                                          public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
-                                                Toast.makeText(TeamManagers.this, "Manager Removed", Toast.LENGTH_SHORT).show();
+                                    if (i == 0) {
+                                        managerRef.document(model.getPhone()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(TeamManagers.this, "Manager Removed", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                          }
-                                      }).addOnFailureListener(new OnFailureListener() {
-                                          @Override
-                                          public void onFailure(@NonNull Exception e) {
-                                              Toast.makeText(TeamManagers.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                          }
-                                      });
-                                   }
-                                   if(i == 1){
-                                      dialogInterface.cancel();
-                                   }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(TeamManagers.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                    if (i == 1) {
+                                        dialogInterface.cancel();
+                                    }
                                 }
                             });
                             builder.show();
+                            return true;
                         }
                     });
                 }
+
+                holder.viewTeam.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(),TeamDetails.class);
+                        intent.putExtra("teamId",model.getPhone());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @NonNull
@@ -125,14 +139,17 @@ public class TeamManagers extends AppCompatActivity {
 
     public static class ManagersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public TextView managerName,managerPhone,managerTeam;
+        public CircleImageView managerImage;
+        public TextView managerName,managerPhone,managerTeam,viewTeam;
         private ItemClickListner mItemClickListner;
 
         public ManagersViewHolder(@NonNull View itemView) {
             super(itemView);
+            managerImage = itemView.findViewById(R.id.manager_image);
             managerName = itemView.findViewById(R.id.manager_name);
             managerPhone = itemView.findViewById(R.id.manager_phone);
             managerTeam = itemView.findViewById(R.id.manager_team);
+            viewTeam = itemView.findViewById(R.id.view_team);
         }
 
         @Override

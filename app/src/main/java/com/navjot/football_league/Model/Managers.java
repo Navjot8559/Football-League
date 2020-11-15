@@ -1,15 +1,16 @@
 package com.navjot.football_league.Model;
 
 public class Managers {
-    private String name,phone,teamName;
+    private String name,phone,teamName,managerImage;
 
     public Managers() {
     }
 
-    public Managers(String name, String phone, String teamName) {
+    public Managers(String name, String phone, String teamName,String managerImage) {
         this.name = name;
         this.phone = phone;
         this.teamName = teamName;
+        this.managerImage = managerImage;
     }
 
     public String getName() {
@@ -34,6 +35,14 @@ public class Managers {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public String getManagerImage() {
+        return managerImage;
+    }
+
+    public void setManagerImage(String managerImage) {
+        this.managerImage = managerImage;
     }
 }
 
